@@ -5,6 +5,12 @@ axios
   .then(function (response) {
     // handle success
     console.log(response.data);
+    let stars = response.data.stargazers_count;
+    let watchers = response.data.watchers_count;
+    let forks = response.data.forks_count;
+    console.log("star count", stars); //188973
+    console.log("watcher count", watchers); //188973
+    console.log("forks count", forks); //30353
   })
   .catch(function (error) {
     // handle error
