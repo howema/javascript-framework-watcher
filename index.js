@@ -1,7 +1,7 @@
 /* global Chart, axios */
 
 let stars = [];
-let watchers = [];
+let subscribers = [];
 let forks = [];
 
 axios
@@ -10,10 +10,10 @@ axios
     // handle success
     console.log(response.data);
     stars.push(response.data.stargazers_count);
-    watchers.push(response.data.watchers_count);
+    subscribers.push(response.data.subscribers_count);
     forks.push(response.data.forks_count);
     console.log("star count", stars); //188973
-    console.log("watcher count", watchers); //188973
+    console.log("watcher count", subscribers); //188973
     console.log("forks count", forks); //30353
   })
   .catch(function (error) {
@@ -32,11 +32,32 @@ function buildChart() {
   var myChart = new Chart(ctx, {
     type: "bar",
     data: {
-      labels: ["Stars", "Watchers", "Forks"],
+      labels: ["Stars", "Subscribers", "Forks"],
       datasets: [
         {
           label: "# of Votes",
-          data: [stars, watchers, forks],
+          data: [stars, subscribers, forks],
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 159, 64, 0.2)",
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)",
+          ],
+          borderWidth: 1,
+        },
+        {
+          label: "# of Votes",
+          data: [stars, subscribers, forks],
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
             "rgba(54, 162, 235, 0.2)",
