@@ -9,9 +9,9 @@ axios
   .then(function (response) {
     // handle success
     console.log(response.data);
-    let stars = response.data.stargazers_count;
-    let watchers = response.data.watchers_count;
-    let forks = response.data.forks_count;
+    stars.push(response.data.stargazers_count);
+    watchers.push(response.data.watchers_count);
+    forks.push(response.data.forks_count);
     console.log("star count", stars); //188973
     console.log("watcher count", watchers); //188973
     console.log("forks count", forks); //30353
@@ -22,46 +22,47 @@ axios
   })
   .then(function () {
     // always executed
+    buildChart();
   });
 
 console.log("test", stars);
 
-var ctx = document.getElementById("myChart").getContext("2d");
-var myChart = new Chart(ctx, {
-  type: "bar",
-  data: {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    datasets: [
-      {
-        label: "# of Votes",
-        data: stars,
-        watchers,
-        forks,
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
-        borderWidth: 1,
-      },
-    ],
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true,
+function buildChart() {
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var myChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Stars", "Watchers", "Forks"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: [stars, watchers, forks],
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 159, 64, 0.2)",
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
       },
     },
-  },
-});
+  });
+}
